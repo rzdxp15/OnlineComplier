@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+
+        ">
+    <bean id="target" class="com.example.springdemo.dao.targe"/>
+    <aop:config>
+        <!-- 配置切面，用于各种通知 -->
+        <aop:aspect ref="target">
+            <!-- 配置aop -->
+            <!-- expression :配置加入的具体位置 -->
+            <aop:pointcut  expression="execution(* com.example.springdemo.dao.targe.*(..))" id="myPointcut"/>
+            <!-- 配置通知类型 -->
+            <aop:before pointcut-ref="myPointcut" method="before"/>
+
+
+        </aop:aspect>
+    </aop:config>
+
+
+</beans>

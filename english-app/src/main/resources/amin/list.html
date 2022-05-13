@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>六级词汇</h1>
+<div>
+<table>
+<thead>
+<th>ID</th>
+<th>单词</th>
+<th>翻译</th>
+</thead>
+
+<tbody>
+<tr th:each="p:${list}">
+<td th:text="${p.id}"></td>
+<td th:text="${p.word}"></td>
+<td th:text="${p.translation}"></td>
+</tr>
+
+
+</tbody>
+</table>
+
+</div>
+</body>
+    
+</html>

@@ -1,0 +1,80 @@
+mykit:
+  delay:
+    logpath: ../logs
+    registry:
+      enable: false
+      namespace: io-mykit-delay
+      serverList: 127.0.0.1:2181
+    rocketmq:
+      namesrvAddr: 127.0.0.1:9876
+      filterSourceRoot: /home/
+    activemq:
+      # 连接的ActiveMQ failover:(tcp://localhost:61616,tcp://localhost:61617)
+      brokerUrl: failover:(tcp://127.0.0.1:61616)
+      username: admin
+      password: admin123
+      useExponentialBackOff: true
+      useAsyncSend: true
+      maximumRedeliveries: 1
+      initialRedeliveryDelay: 3000
+      backOffMultiplier: 2
+      maximumRedeliveryDelay: 3000
+      queue_pub_sub_domain: false
+      topic_pub_sub_domain: true
+    rqueue:
+     #是否已集群模式运行 会涉及到分布式锁竞争的情况 默认为false
+      cluster: false
+      name: mykit-delay
+      bucketSize: 4
+
+spring:
+    jmx:
+      enabled: true
+    application:
+        name: 'mykit-delay'
+        version: '1.0.0'
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/englishapp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        driverClassName: com.mysql.jdbc.Driver
+        username: englishapp
+        password: zdz6592124
+        type: com.alibaba.druid.pool.DruidDataSource
+        filters: stat
+        maxActive: 30
+        initialSize: 3
+        maxWait: 60000
+        maxIdle: 30
+        minIdle: 3
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    redis:
+#        host: localhost
+#        password: aJjbuDRYw4
+#        port: 6380
+        timeout: 60000
+        database: 11
+        cluster:
+          nodes:
+            - 10.31.5.65:7001
+            - 10.31.5.65:7002
+            - 10.31.5.65:7003
+            - 10.31.5.65:7004
+            - 10.31.5.65:7005
+            - 10.31.5.65:7006
+        pool:
+          max-idle: 300
+          min-idle: 10
+          max-active: 200
+          max-wait: 10000
+
+server:
+  port: 6355
+
+logging:
+     config: file:${soft.home}/config/logback.xml
